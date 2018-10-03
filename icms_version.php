@@ -17,10 +17,10 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_CONTENT_MD_NAME,
-	'version'					=> 1.2.1,
+	'version'					=> "1.2.2",
 	'description'				=> _MI_CONTENT_MD_DESC,
-	'author'					=> "David Janssens (fiammybe), Rodrigo P Lima aka TheRplima, Phoenyx, skenow, QM-B",
-	'credits'					=> "The ImpressCMS Project",
+	'author'					=> "David Janssens (fiammybe)",
+	'credits'					=> "The ImpressCMS Project, Rodrigo P Lima aka TheRplima, Phoenyx, skenow, QM-B",
 	'help'						=> "",
 	'license'					=> "GNU General Public License v2 (GPLv2)",
 	'official'					=> 1,
@@ -33,14 +33,14 @@ $modversion = array(
 	'image'						=> "images/icon_big.png", /* for backward compatibility */
 
 /**  Development information */
-	'status_version'			=> "Final",
-	'status'					=> "Final",
-	'date'						=> "30 Dec 2016",
+	'status_version'			=> "RC",
+	'status'					=> "RC",
+	'date'						=> "04 Oct 2018",
 	'author_word'				=> "",
-	'warning'					=> _CO_ICMS_WARNING_FINAL,
+	'warning'					=> _CO_ICMS_WARNING_RC,
 
 /** Contributors */
-	'developer_website_url'		=> "http://www.impresscms.org",
+	'developer_website_url'		=> "https://www.impresscms.org",
 	'developer_website_name'	=> "The ImpressCMS Project",
 	'developer_email'			=> "contact@impresscms.org",
 
@@ -71,10 +71,10 @@ $modversion = array(
 	'object_items'				=> array('content'));
 
 $modversion["tables"] = icms_getTablesArray($modversion['dirname'], $modversion['object_items']);
-$modversion['people']['developers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=1102]David Janssens (fiammybe)[/url]";
-$modversion['people']['developers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=106]Rodrigo P Lima (TheRplima)[/url]";
-$modversion['people']['developers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
-$modversion['people']['translators'][] = "[url=http://community.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
+$modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=1102]David Janssens (fiammybe)[/url]";
+$modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]Rodrigo P Lima (TheRplima)[/url]";
+$modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
+$modversion['people']['translators'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
 //$modversion['people']['testers'][] = "";
 //$modversion['people']['documenters'][] = "";
 //$modversion['people']['other'][] = "";
