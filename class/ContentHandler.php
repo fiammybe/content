@@ -355,7 +355,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		if (is_null($content_id)) $content_id = 0;
 		$criteria->add(new icms_db_criteria_Item('content_pid', $content_id));
 
-		$contents = & $this->getObjects($criteria, true);
+		$contents = $this->getObjects($criteria, true);
 		$ret = array();
 		if ($showNull) {
 			$ret[0] = '-----------------------';
