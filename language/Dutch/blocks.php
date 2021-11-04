@@ -12,11 +12,11 @@
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 
-define('_MB_CONTENT_CONTENT_SELPAGE','<b>Page to display:</b> <br /><small>Select "---------------" to display always the last created page.</small>');
-define('_MB_CONTENT_CONTENT_SHOWSUBS','<b>Show Related Pages:</b>');
-define('_MB_CONTENT_CONTENT_SHOWBREADCRUMB','<b>Show Breadcrumb:</b>');
-define('_MB_CONTENT_CONTENT_SHOWINFO','<b>Show Author and published info:</b>');
-define("_MB_CONTENT_CONTENT_SORT", "<b>Sort:</b>");
-define("_MB_CONTENT_CONTENT_ORDER", "<b>Order:</b>");
-define("_MB_CONTENT_CONTENT_SELCOLOR", "<b>Background color of the selected item:</b>");
-define("_MB_CONTENT_CONTENT_CONTID", '<b>Show only sub-pages from:</b> <br /><small>Select "---------------" to not filter and show all pages.</small>');
+define('_MB_CONTENT_CONTENT_SELPAGE','<b>Pagina om weer te geven:</b> <br /><small>Selecteer "---------------" om altijd de laatst gecreëerde pagina weer te geven</small>');
+define('_MB_CONTENT_CONTENT_SHOWSUBS','<b>Verwante pagina\'s tonen:</b>');
+define('_MB_CONTENT_CONTENT_SHOWBREADCRUMB','<b>Breadcrumb tonen:</b>');
+define('_MB_CONTENT_CONTENT_SHOWINFO','<b>Auteur en publicatie info tonen:</b>');
+define("_MB_CONTENT_CONTENT_SORT", "<b>Sorteer:</b>");
+define("_MB_CONTENT_CONTENT_ORDER", "<b>Volgorde:</b>");
+define("_MB_CONTENT_CONTENT_SELCOLOR", "<b>Achtergrondkleur van het geselecteerde element:</b>");
+define("_MB_CONTENT_CONTENT_CONTID", '<b>Toon alleen subpagina\'s van:</b> <br /><small>Selecteer "---------------" om niet te filteren en alle pagina\'s te tonen.</small>');
