@@ -14,20 +14,20 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 
 // Module Info
 define("_MI_CONTENT_MD_NAME", "Content");
-define("_MI_CONTENT_MD_DESC", "ImpressCMS Content Manager module");
+define("_MI_CONTENT_MD_DESC", "ImpressCMS Contentbeheer module");
 define("_MI_CONTENT_CONTENTS", "Contents");
 
 //Menu
-define("_MI_CONTENT_CONTENT_ADD", "Submit");
+define("_MI_CONTENT_CONTENT_ADD", "Verzenden");
 
 // Configs
-define("_MI_CONTENT_CONTPAGE", "Default Page");
-define("_MI_CONTENT_CONTPAGEDSC", "Select the default page to be displayed to the user in Content Manager. Leave blank to have Content Manager default to the most recently created page.");
-define("_MI_CONTENT_AUTHORGR", "Groups allowed to add contents");
-define("_MI_CONTENT_AUTHORGRDSC", "Select the groups which are allowed to create new contents. Please note that a user belonging to one of these groups will be able to content directly on the site. The module currently has no moderation feature.");
-define("_MI_CONTENT_LIMIT", "Contents limit");
-define("_MI_CONTENT_LIMITDSC", "Number of contents to display on user side.");
-define("_MI_CONTENT_SHOWBREADCRUMB", "Show Breadcrumb");
+define("_MI_CONTENT_CONTPAGE", "Standaard pagina");
+define("_MI_CONTENT_CONTPAGEDSC", "Selecteer de standaard pagina om te tonen aan de gebruiker in Content Manager. Laat leeg om de standaard Content Manager op de laatst gemaakte pagina te zetten.");
+define("_MI_CONTENT_AUTHORGR", "Groepen die inhoud mogen toevoegen");
+define("_MI_CONTENT_AUTHORGRDSC", "Selecteer de groepen die toegestaan zijn om nieuwe inhoud te maken. Houd er rekening mee dat een gebruiker die behoort tot een van deze groepen direct inhoud kan hebben op de site. De module heeft op dit moment geen moderatie functie.");
+define("_MI_CONTENT_LIMIT", "Inhoud limiet");
+define("_MI_CONTENT_LIMITDSC", "Aantal pagina's om weer te geven aan gebruikerszijde.");
+define("_MI_CONTENT_SHOWBREADCRUMB", "Breadcrumb tonen");
 define("_MI_CONTENT_SHOWBREADCRUMBDSC", "Set to YES to show a breadcrumb (navigation menu) on the user side.");
 define("_MI_CONTENT_SHOWRELATEDS", "Show Related Pages");
 define("_MI_CONTENT_SHOWRELATEDSDSC", "Set to YES to show the related pages after the page content.");
