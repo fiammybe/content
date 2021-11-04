@@ -13,37 +13,37 @@
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 
 // Module Info
-define("_MI_CONTENT_MD_NAME", "Content");
-define("_MI_CONTENT_MD_DESC", "ImpressCMS Content Manager module");
-define("_MI_CONTENT_CONTENTS", "Contents");
+define("_MI_CONTENT_MD_NAME", "Inhalt");
+define("_MI_CONTENT_MD_DESC", "ImpressCMS Content Manager-Modul");
+define("_MI_CONTENT_CONTENTS", "Inhalte");
 
 //Menu
-define("_MI_CONTENT_CONTENT_ADD", "Submit");
+define("_MI_CONTENT_CONTENT_ADD", "Absenden");
 
 // Configs
-define("_MI_CONTENT_CONTPAGE", "Default Page");
-define("_MI_CONTENT_CONTPAGEDSC", "Select the default page to be displayed to the user in Content Manager. Leave blank to have Content Manager default to the most recently created page.");
-define("_MI_CONTENT_AUTHORGR", "Groups allowed to add contents");
-define("_MI_CONTENT_AUTHORGRDSC", "Select the groups which are allowed to create new contents. Please note that a user belonging to one of these groups will be able to content directly on the site. The module currently has no moderation feature.");
-define("_MI_CONTENT_LIMIT", "Contents limit");
-define("_MI_CONTENT_LIMITDSC", "Number of contents to display on user side.");
-define("_MI_CONTENT_SHOWBREADCRUMB", "Show Breadcrumb");
-define("_MI_CONTENT_SHOWBREADCRUMBDSC", "Set to YES to show a breadcrumb (navigation menu) on the user side.");
-define("_MI_CONTENT_SHOWRELATEDS", "Show Related Pages");
-define("_MI_CONTENT_SHOWRELATEDSDSC", "Set to YES to show the related pages after the page content.");
-define("_MI_CONTENT_SHOWINFO", "Show author and published info");
-define("_MI_CONTENT_SHOWINFODSC", "Set to YES to show in the page informations about the author and publish of the page.");
+define("_MI_CONTENT_CONTPAGE", "Standardseite");
+define("_MI_CONTENT_CONTPAGEDSC", "Wählen Sie die Standardseite, die dem Benutzer im Content-Manager angezeigt werden soll. Leer lassen, um den Content-Manager auf die zuletzt erstellte Seite zu setzen.");
+define("_MI_CONTENT_AUTHORGR", "Gruppen, die Inhalte hinzufügen dürfen");
+define("_MI_CONTENT_AUTHORGRDSC", "Wählen Sie die Gruppen, die neue Inhalte erstellen dürfen. Bitte beachten Sie, dass ein Benutzer, der zu einer dieser Gruppen gehört, in der Lage sein wird, sich direkt auf der Website zu informieren. Das Modul hat derzeit keine Moderations-Funktion.");
+define("_MI_CONTENT_LIMIT", "Inhalts-Limit");
+define("_MI_CONTENT_LIMITDSC", "Anzahl der Inhalte, die auf der Benutzerseite angezeigt werden.");
+define("_MI_CONTENT_SHOWBREADCRUMB", "Breadcrumbmenü anzeigen");
+define("_MI_CONTENT_SHOWBREADCRUMBDSC", "Auf Ja setzen um ein Breadcrumb (Navigationsmenü) auf der Benutzerseite anzuzeigen.");
+define("_MI_CONTENT_SHOWRELATEDS", "Verwandte Seiten anzeigen");
+define("_MI_CONTENT_SHOWRELATEDSDSC", "Auf Ja setzen, um die verwandten Seiten nach dem Seiteninhalt anzuzeigen.");
+define("_MI_CONTENT_SHOWINFO", "Autor und veröffentlichte Informationen anzeigen");
+define("_MI_CONTENT_SHOWINFODSC", "Setzen Sie auf JA, um Informationen über den Autor und die Veröffentlichung der Seite anzuzeigen.");
 
 // Blocks
-define("_MI_CONTENT_CONTENTDISPLAY", "Content");
-define("_MI_CONTENT_CONTENTDISPLAYDSC", "Display the desired content page with some defined configurations.");
-define("_MI_CONTENT_CONTENTMENU", "Content Menu");
-define("_MI_CONTENT_CONTENTMENUDSC", "Show a block with a menu of content pages.");
+define("_MI_CONTENT_CONTENTDISPLAY", "Inhalt");
+define("_MI_CONTENT_CONTENTDISPLAYDSC", "Zeigt die gewünschte Seite mit einigen definierten Konfigurationen an.");
+define("_MI_CONTENT_CONTENTMENU", "Inhalts-Menü");
+define("_MI_CONTENT_CONTENTMENUDSC", "Zeige einen Block mit einem Menü von Inhaltsseiten.");
 
 // Notifications
-define("_MI_CONTENT_GLOBAL_NOTIFY", "All contents");
-define("_MI_CONTENT_GLOBAL_NOTIFY_DSC", "Notifications related to all contents in the module");
-define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY", "New content published");
-define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY_CAP", "Notify me when a new content is published");
-define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY_DSC", "Receive notification when any new content is published.");
-define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY_SBJ", "[{X_SITENAME}] {X_MODULE} auto-notify : New content published");
+define("_MI_CONTENT_GLOBAL_NOTIFY", "Alle Inhalte");
+define("_MI_CONTENT_GLOBAL_NOTIFY_DSC", "Benachrichtigungen zu allen Inhalten des Moduls");
+define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY", "Neuer Beitrag veröffentlicht");
+define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY_CAP", "Benachrichtigen, wenn ein neuer Inhalt veröffentlicht wird");
+define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY_DSC", "Erhalten Sie eine Benachrichtigung, wenn neue Inhalte veröffentlicht werden.");
+define("_MI_CONTENT_GLOBAL_CONTENT_PUBLISHED_NOTIFY_SBJ", "[{X_SITENAME}] {X_MODULE} Auto-Benachrichtigung : Neuer Inhalt veröffentlicht");
