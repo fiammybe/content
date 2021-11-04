@@ -13,20 +13,20 @@
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 
 // Requirements
-define("_AM_CONTENT_REQUIREMENTS", "content Requirements");
-define("_AM_CONTENT_REQUIREMENTS_INFO", "We've reviewed your system, unfortunately it doesn't meet all the requirements needed for content to function. Below are the requirements needed.");
-define("_AM_CONTENT_REQUIREMENTS_ICMS_BUILD", "content requires at least ImpressCMS 1.1.1 RC 1.");
-define("_AM_CONTENT_REQUIREMENTS_SUPPORT", "Should you have any question or concerns, please visit our forums at <a href='http://community.impresscms.org'>http://community.impresscms.org</a>.");
+define("_AM_CONTENT_REQUIREMENTS", "Inhaltsanforderungen");
+define("_AM_CONTENT_REQUIREMENTS_INFO", "Wir haben Ihr System überprüft, leider erfüllt es nicht alle Anforderungen, die für die Funktion von Inhalten benötigt werden. Unten sind die erforderlichen Voraussetzungen.");
+define("_AM_CONTENT_REQUIREMENTS_ICMS_BUILD", "Inhalt erfordert mindestens ImpressCMS 1.1.1 RC 1.");
+define("_AM_CONTENT_REQUIREMENTS_SUPPORT", "Sollten Sie Fragen oder Bedenken haben, besuchen Sie bitte unsere Foren unter <a href='http://community.impresscms.org'>http://community.impresscms.org</a>.");
 
 // general
-define("_AM_CONTENT_CONTENTS", "Contents");
+define("_AM_CONTENT_CONTENTS", "Inhalte");
 
 // Content
-define("_AM_CONTENT_CONTENT_CREATE", "Add a content");
-define("_AM_CONTENT_CONTENT", "Content");
-define("_AM_CONTENT_CONTENT_EDIT", "Edit this content");
-define("_AM_CONTENT_CONTENT_MODIFIED", "The content was successfully modified.");
-define("_AM_CONTENT_CONTENT_CREATED", "The content has been successfully created.");
-define("_AM_CONTENT_CONTENT_CLONE", "Clone this content");
-define("_AM_CONTENT_PREVIEW", "Preview Content");
-define("_AM_CONTENT_VIEW", "View Full Content Info");
+define("_AM_CONTENT_CONTENT_CREATE", "Inhalt hinzufügen");
+define("_AM_CONTENT_CONTENT", "Inhalt");
+define("_AM_CONTENT_CONTENT_EDIT", "Diesen Inhalt bearbeiten");
+define("_AM_CONTENT_CONTENT_MODIFIED", "Der Inhalt wurde erfolgreich geändert.");
+define("_AM_CONTENT_CONTENT_CREATED", "Der Inhalt wurde erfolgreich erstellt.");
+define("_AM_CONTENT_CONTENT_CLONE", "Diesen Inhalt klonen");
+define("_AM_CONTENT_PREVIEW", "Vorschau des Inhalts");
+define("_AM_CONTENT_VIEW", "Vollständige Inhaltsinformationen ansehen");
