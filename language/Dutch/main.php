@@ -12,9 +12,9 @@
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 
-define("_MD_CONTENT_CONTENT_EDIT", "Edit content");
-define("_MD_CONTENT_CONTENT_SUBMIT", "Submit content");
-define("_MD_CONTENT_CONTENT_MODIFIED", "The content was successfully modified.");
-define("_MD_CONTENT_CONTENT_CREATED", "The content has been successfully created.");
-define("_MD_CONTENT_SECURITY_CHECK_FAILED", "Security check failed...");
-define("_MD_CONTENT_SUBS", "Related Pages");
+define("_MD_CONTENT_CONTENT_EDIT", "Bewerk inhoud");
+define("_MD_CONTENT_CONTENT_SUBMIT", "Inhoud verzenden");
+define("_MD_CONTENT_CONTENT_MODIFIED", "De inhoud is succesvol gewijzigd.");
+define("_MD_CONTENT_CONTENT_CREATED", "De inhoud is succesvol aangemaakt.");
+define("_MD_CONTENT_SECURITY_CHECK_FAILED", "Veiligheidscontrole mislukt...");
+define("_MD_CONTENT_SUBS", "Verwante pagina's");
