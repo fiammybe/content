@@ -39,7 +39,7 @@ include_once 'header.php';
 $xoopsOption['template_main'] = 'content_content.html';
 include_once ICMS_ROOT_PATH . '/header.php';
 
-$content_content_handler = icms_getModuleHandler('content', basename(dirname(__FILE__)));
+$content_content_handler = icms_getModuleHandler('content', basename(__DIR__));
 
 /** Again, use a naming convention that indicates the source of the content of the variable */
 $clean_content_id = isset($_GET['content_id']) ? filter_input(INPUT_GET, 'content_id', FILTER_SANITIZE_NUMBER_INT) : 0;

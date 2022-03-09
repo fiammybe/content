@@ -17,7 +17,7 @@ include_once 'header.php';
 $xoopsOption['template_main'] = 'content_index.html';
 include_once ICMS_ROOT_PATH . '/header.php';
 
-$content_content_handler = icms_getModuleHandler('content', basename(dirname(__FILE__)), 'content');
+$content_content_handler = icms_getModuleHandler('content', basename(__DIR__), 'content');
 
 if (icms::$module->config['default_page'] == 0) {
 	// At which record shall we start display
