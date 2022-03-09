@@ -13,7 +13,7 @@
  */
 
 /**
- * Edit a Content
+ * Edit a Content page
  *
  * @param int $content_id Contentid to be edited
  */

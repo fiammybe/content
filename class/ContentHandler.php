@@ -53,7 +53,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 	public function __construct(&$db) {
 		parent::__construct($db, 'content', 'content_id', 'content_title', 'content_body', 'content');
 
-		icms_loadLanguageFile(basename(dirname(dirname(__FILE__))), 'common');
+		icms_loadLanguageFile(basename(dirname(__FILE__, 2)), 'common');
 		$this->addPermission('content_read', _CO_CONTENT_CONTENT_READ, _CO_CONTENT_CONTENT_READ_DSC);
 	}
 
@@ -258,7 +258,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		if (!is_object(icms::$user)) return false;
 		if ($content_isAdmin) return true;
 		$user_groups = icms::$user->getGroups();
-		$module = icms::handler("icms_module")->getByDirname(basename(dirname(dirname(__FILE__))), TRUE);
+		$module = icms::handler("icms_module")->getByDirname(basename(dirname(__FILE__, 2)), TRUE);
 		return count(array_intersect($module->config['poster_groups'], $user_groups)) > 0;
 	}
 
@@ -523,7 +523,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 	protected function afterDelete(&$obj) {
 		$seo = $obj->handler->makelink($obj);
 		$url = str_replace(ICMS_URL . '/', '', $obj->handler->_moduleUrl . $obj->handler->_itemname . '.php?content_id=' . $obj->getVar('content_id') . '&page=' . $seo);
-		$module = icms::handler('icms_module')->getByDirname(basename(dirname(dirname(__FILE__))));
+		$module = icms::handler('icms_module')->getByDirname(basename(dirname(__FILE__, 2)));
 		$symlink_handler = icms_getModuleHandler('pages', 'system');
 		$criteria = new icms_db_criteria_Compo(new icms_db_criteria_Item('page_url', $url));
 		$criteria->add(new icms_db_criteria_Item('page_moduleid', $module->getVar('mid')));

@@ -205,7 +205,7 @@ class mod_content_Content extends icms_ipf_seo_Object {
 		$gperm_handler = icms::handler('icms_member_groupperm');
 		$groups = is_object(icms::$user) ? icms::$user->getGroups() : array(ICMS_GROUP_ANONYMOUS);
 
-		$module = icms::handler('icms_module')->getByDirname(basename(dirname(dirname(__FILE__))));
+		$module = icms::handler('icms_module')->getByDirname(basename(dirname(__FILE__, 2)));
 
 		$agroups = $gperm_handler->getGroupIds('module_admin', $module->getVar("mid"));
 		$allowed_groups = array_intersect($groups, $agroups);
@@ -348,7 +348,7 @@ class mod_content_Content extends icms_ipf_seo_Object {
 	 * @return VOID
 	 */
 	function sendNotifContentPublished() {
-		$module = icms::handler('icms_module')->getByDirname(basename(dirname(dirname(__FILE__))));
+		$module = icms::handler('icms_module')->getByDirname(basename(dirname(__FILE__, 2)));
 		$tags ['CONTENT_TITLE'] = $this->getVar('content_title');
 		$tags ['CONTENT_URL'] = $this->getItemLink(true);
 		icms::handler('icms_data_notification')->triggerEvent('global', 0, 'content_published', $tags, array(), $module->getVar('mid'));
