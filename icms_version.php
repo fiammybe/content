@@ -33,9 +33,9 @@ $modversion = array(
 	'image'						=> "images/icon_big.png", /* for backward compatibility */
 
 /**  Development information */
-	'status_version'			=> "beta",
-	'status'					=> "beta",
-	'date'						=> "11 Feb 2022",
+	'status_version'			=> "final",
+	'status'					=> "final",
+	'date'						=> "9 Mar 2022",
 	'author_word'				=> "",
 	'warning'					=> _CO_ICMS_WARNING_FINAL,
 
