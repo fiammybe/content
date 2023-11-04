@@ -17,7 +17,7 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_CONTENT_MD_NAME,
-	'version'					=> "1.3.1",
+	'version'					=> "1.3.2",
 	'description'				=> _MI_CONTENT_MD_DESC,
 	'author'					=> "David Janssens (fiammybe)",
 	'credits'					=> "mekdrop, skenow, Rodrigo P Lima aka TheRplima, Phoenyx",
@@ -35,7 +35,7 @@ $modversion = array(
 /**  Development information */
 	'status_version'			=> "final",
 	'status'					=> "final",
-	'date'						=> "9 Mar 2022",
+	'date'						=> "4 Nov 2023",
 	'author_word'				=> "",
 	'warning'					=> _CO_ICMS_WARNING_FINAL,
 
