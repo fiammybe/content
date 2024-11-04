@@ -17,7 +17,7 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_CONTENT_MD_NAME,
-	'version'					=> "1.3.1",
+	'version'					=> "1.4.0",
 	'description'				=> _MI_CONTENT_MD_DESC,
 	'author'					=> "David Janssens (fiammybe)",
 	'credits'					=> "mekdrop, skenow, Rodrigo P Lima aka TheRplima, Phoenyx",
@@ -33,11 +33,11 @@ $modversion = array(
 	'image'						=> "images/icon_big.png", /* for backward compatibility */
 
 /**  Development information */
-	'status_version'			=> "final",
-	'status'					=> "final",
-	'date'						=> "9 Mar 2022",
+	'status_version'			=> "beta",
+	'status'					=> "beta",
+	'date'						=> "10 Nov 2024",
 	'author_word'				=> "",
-	'warning'					=> _CO_ICMS_WARNING_FINAL,
+	'warning'					=> _CO_ICMS_WARNING_BETA,
 
 /** Contributors */
 	'developer_website_url'		=> "https://www.impresscms.org",
@@ -165,6 +165,30 @@ $modversion['config'][] = array(
 	'name'			=> 'show_contentinfo',
 	'title'			=> '_MI_CONTENT_SHOWINFO',
 	'description'	=> '_MI_CONTENT_SHOWINFODSC',
+	'formtype'		=> 'yesno',
+	'valuetype'		=> 'int',
+	'default'		=> 1);
+
+$modversion['config'][] = array(
+	'name'			=> 'show_content_edit_userside',
+	'title'			=> '_MI_CONTENT_EDIT_USERSIDE',
+	'description'	=> '_MI_CONTENT_EDIT_USERSIDEDSC',
+	'formtype'		=> 'yesno',
+	'valuetype'		=> 'int',
+	'default'		=> 1);
+
+$modversion['config'][] = array(
+	'name'			=> 'show_content_edit_image',
+	'title'			=> '_MI_CONTENT_EDITIMAGE',
+	'description'	=> '_MI_CONTENT_EDITIMAGEDSC',
+	'formtype'		=> 'yesno',
+	'valuetype'		=> 'int',
+	'default'		=> 1);
+
+$modversion['config'][] = array(
+	'name'			=> 'show_content_edit_onlyurl',
+	'title'			=> '_MI_CONTENT_EDITURL_ONLY',
+	'description'	=> '_MI_CONTENT_EDITURL_ONLYDSC',
 	'formtype'		=> 'yesno',
 	'valuetype'		=> 'int',
 	'default'		=> 1);
