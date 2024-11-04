@@ -184,7 +184,7 @@ class mod_content_Content extends icms_ipf_seo_Object {
 		$content_module = icms_getModuleInfo('content');
 		$groups = icms::$user->getGroups();
 
-		if (file_exists(ICMS_EDITOR_PATH . "/" . $icmsConfig['editor_default'] . "/xoops_version.php") && icms::handler('icms_member_groupperm')->checkRight('use_wysiwygeditor', $content_module->getVar("mid"), $groups)) {
+		if (file_exists(ICMS_EDITOR_PATH . "/" . icms::$config->getConfig('editor_default') . "/xoops_version.php") && icms::handler('icms_member_groupperm')->checkRight('use_wysiwygeditor', $content_module->getVar("mid"), $groups)) {
 			return false;
 		} else {
 			return true;
@@ -248,7 +248,7 @@ class mod_content_Content extends icms_ipf_seo_Object {
 			} else {
 				global $icmsConfig;
 				$this->_poster_info['uid'] = 0;
-				$this->_poster_info['uname'] = $icmsConfig['anonymous'];
+				$this->_poster_info['uname'] = icms::$config->getConfig('anonymous');
 			}
 		}
 		if ($link && $this->_poster_info['uid']) {
@@ -293,7 +293,7 @@ class mod_content_Content extends icms_ipf_seo_Object {
 		return $ret;
 	}
 
-	function getViewItemLink() {
+	function getViewItemLink($onlyUrl = false, $withimage = true, $userSide = false) {
 		$ret = '<a href="' . $this->handler->_moduleUrl . 'admin/' . $this->handler->_itemname . '.php?op=view&amp;content_id=' . $this->getVar('content_id', 'e') . '" title="' . _AM_CONTENT_VIEW . '"><img src="' . ICMS_IMAGES_SET_URL . '/actions/viewmag.png" /></a>';
 
 		return $ret;
@@ -375,8 +375,11 @@ class mod_content_Content extends icms_ipf_seo_Object {
 		$ret['content_css'] = $this->getVar('content_css', 'e');
 		$ret['content_subs'] = $this->getContentSubs($this->getVar('content_id', 'e'), true);
 		$ret['content_hassubs'] = (count($ret['content_subs']) > 0) ? true : false;
-		$ret['editItemLink'] = $this->getEditItemLink(false, true, true);
-		$ret['deleteItemLink'] = $this->getDeleteItemLink(false, true, true);
+		$ret['editItemLink'] = $this->getEditItemLink(icms::$config->getConfig('show_content_edit_onlyurl'), icms::$config->getConfig('show_content_edit_image'), icms::$config->getConfig('show_content_edit_userside'));
+		$ret['deleteItemLink'] = $this->getDeleteItemLink(icms::$config->getConfig('show_content_edit_onlyurl'), icms::$config->getConfig('show_content_edit_image'), icms::$config->getConfig('show_content_edit_userside'));
+		$ret['editItemUrl'] = $this->getEditItemLink(true, icms::$config->getConfig('show_content_edit_image'), icms::$config->getConfig('show_content_edit_userside'));
+		$ret['deleteItemUrl'] = $this->getDeleteItemLink(true, icms::$config->getConfig('show_content_edit_image'), icms::$config->getConfig('show_content_edit_userside'));
+
 		$ret['userCanEditAndDelete'] = $this->userCanEditAndDelete();
 		$ret['content_posterid'] = $this->getVar('content_uid', 'e');
 		$ret['itemLink'] = $this->getItemLink();
