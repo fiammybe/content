@@ -35,14 +35,14 @@ $modversion = array(
 /**  Development information */
 	'status_version'			=> "1.4.1 RC",
 	'status'					=> "RC",
-	'date'						=> "4 Nov 2023",
+	'date'						=> "31 Oct 2025",
 	'author_word'				=> "Add content spotlight block",
 	'warning'					=> _CO_ICMS_WARNING_RC,
 
 /** Contributors */
 	'developer_website_url'		=> "https://www.impresscms.org",
 	'developer_website_name'	=> "The ImpressCMS Project",
-	'developer_email'			=> "contact@impresscms.org",
+	'developer_email'			=> "david.j@impresscms.org",
 
 /** Administrative information */
 	'hasAdmin'					=> 1,
@@ -73,11 +73,6 @@ $modversion = array(
 $modversion["tables"] = icms_getTablesArray($modversion['dirname'], $modversion['object_items']);
 $modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=1102]David Janssens (fiammybe)[/url]";
 $modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]Rodrigo P Lima (TheRplima)[/url]";
-$modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
-$modversion['people']['translators'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
-//$modversion['people']['testers'][] = "";
-//$modversion['people']['documenters'][] = "";
-//$modversion['people']['other'][] = "";
 
 /** Manual */
 $modversion['manual']['wiki'][] = "<a href='http://wiki.impresscms.org/index.php?title=content' target='_blank'>English</a>";
