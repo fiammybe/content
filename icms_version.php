@@ -17,7 +17,7 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_CONTENT_MD_NAME,
-	'version'					=> "1.3.2",
+	'version'					=> "1.4.1",
 	'description'				=> _MI_CONTENT_MD_DESC,
 	'author'					=> "David Janssens (fiammybe)",
 	'credits'					=> "mekdrop, skenow, Rodrigo P Lima aka TheRplima, Phoenyx",
@@ -33,11 +33,11 @@ $modversion = array(
 	'image'						=> "images/icon_big.png", /* for backward compatibility */
 
 /**  Development information */
-	'status_version'			=> "final",
-	'status'					=> "final",
+	'status_version'			=> "1.4.1 RC",
+	'status'					=> "RC",
 	'date'						=> "4 Nov 2023",
-	'author_word'				=> "",
-	'warning'					=> _CO_ICMS_WARNING_FINAL,
+	'author_word'				=> "Add content spotlight block",
+	'warning'					=> _CO_ICMS_WARNING_RC,
 
 /** Contributors */
 	'developer_website_url'		=> "https://www.impresscms.org",
@@ -107,6 +107,14 @@ $modversion['blocks'][2] = array(
 	'edit_func'		=> 'content_content_menu_edit',
 	'options'		=> 'content_title|ASC|1|#59ADDB|0',
 	'template'		=> 'content_content_menu.html');
+$modversion['blocks'][3] = array(
+    'file'			=> 'content_spotlight.php',
+    'name'			=> _MI_CONTENT_CONTENTSPOTLIGHT,
+    'description'	=> _MI_CONTENT_CONTENTSPOTLIGHTDSC,
+    'show_func'		=> 'content_content_spotlight_show',
+    'edit_func'		=> 'content_content_spotlight_edit',
+    'options'		=> '0|text|button',
+    'template'		=> 'content_content_spotlight.html');
 
 /** Templates information */
 $modversion['templates'] = array(
