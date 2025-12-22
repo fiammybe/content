@@ -20,3 +20,15 @@ if (!defined("CONTENT_ADMIN_URL")) {
     define('CONTENT_ADMIN_URL', CONTENT_URL . "admin/");
 }
 include_once CONTENT_ROOT_PATH . 'include/requirements.php';
+
+// Security fix: Add security headers to admin pages
+if (!headers_sent()) {
+	// Prevent clickjacking attacks
+	header("X-Frame-Options: SAMEORIGIN");
+	// Prevent MIME-type sniffing
+	header("X-Content-Type-Options: nosniff");
+	// Enable XSS protection in browsers
+	header("X-XSS-Protection: 1; mode=block");
+	// Control referrer information
+	header("Referrer-Policy: strict-origin-when-cross-origin");
+}
