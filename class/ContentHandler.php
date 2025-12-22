@@ -144,18 +144,19 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		if ($content_uid) $criteria->add(new icms_db_criteria_Item('content_uid', $content_uid));
 		
 		// Security fix: Escape LIKE wildcards to prevent SQL injection
+		// Backslash must be escaped first to avoid double-escaping
 		if ($content_tags) {
-			$escaped_tags = str_replace(['%', '_', '\\'], ['\\%', '\\_', '\\\\'], $content_tags);
+			$escaped_tags = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $content_tags);
 			$criteria->add(new icms_db_criteria_Item('content_tags', '%'.$escaped_tags.'%', 'LIKE'));
 		}
 
 		if ($content_id) {
-			// Security fix: Escape LIKE wildcards
-			$escaped_id = str_replace(['%', '_', '\\'], ['\\%', '\\_', '\\\\'], $content_id);
+			// Security fix: Escape LIKE wildcards, backslash first
+			$escaped_id = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $content_id);
 			$crit = new icms_db_criteria_Compo(new icms_db_criteria_Item('short_url', $escaped_id,'LIKE'));
 			$alt_content_id = str_replace('-',' ',$content_id);
 			//Added for backward compatiblity in case short_url contains spaces instead of dashes.
-			$escaped_alt_id = str_replace(['%', '_', '\\'], ['\\%', '\\_', '\\\\'], $alt_content_id);
+			$escaped_alt_id = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $alt_content_id);
 			$crit->add(new icms_db_criteria_Item('short_url', $escaped_alt_id),'OR');
 			$crit->add(new icms_db_criteria_Item('content_id', $content_id),'OR');
 			$criteria->add($crit);

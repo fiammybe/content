@@ -34,6 +34,26 @@ function editcontent($contentObj) {
 	}
 }
 
+/**
+ * Validate page parameter to prevent SQL injection
+ * @param mixed $page The page parameter to validate
+ * @return string|int Valid page parameter or empty string
+ */
+function validatePageParameter($page) {
+	if (empty($page)) {
+		return '';
+	}
+	// Allow integers or alphanumeric strings with hyphens and underscores
+	if (is_numeric($page)) {
+		return (int)$page;
+	}
+	// Security: Anchor regex to ensure entire string matches
+	if (preg_match('/^[a-zA-Z0-9_-]+$/', $page)) {
+		return $page;
+	}
+	return '';
+}
+
 include_once 'header.php';
 
 $xoopsOption['template_main'] = 'content_content.html';
@@ -48,11 +68,7 @@ $clean_content_id = ($clean_content_id == 0 && isset($_POST['content_id'])) ? fi
 // Security fix: Improved sanitization for page parameter to prevent SQL injection
 $page = isset($_GET['page']) ? filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
 $page = isset($_POST['page']) ? filter_input(INPUT_POST, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : $page;
-
-// Validate page format - only allow alphanumeric, hyphens, and underscores
-if ($page && !preg_match('/^[a-zA-Z0-9_-]+$/', $page)) {
-	$page = '';
-}
+$page = validatePageParameter($page);
 
 if (!$page){
 	$path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
@@ -71,9 +87,7 @@ if (!$page){
 			$page = $params[0];
 		}
 		// Re-validate extracted page parameter
-		if ($page && !preg_match('/^[a-zA-Z0-9_-]+$/', $page)) {
-			$page = '';
-		}
+		$page = validatePageParameter($page);
 	}
 }
 

@@ -65,20 +65,19 @@ $clean_op = '';
  */
 $valid_op = array('mod', 'changedField', 'addcontent', 'del', 'clone', 'view', '');
 
-// Security fix: Removed unnecessary htmlentities() - operation is validated against whitelist
-if (isset($_GET['op'])) {
-    $clean_op = $_GET['op'];
-}
+// Security fix: POST takes precedence over GET for security
 if (isset($_POST['op'])) {
     $clean_op = $_POST['op'];
+} elseif (isset($_GET['op'])) {
+    $clean_op = $_GET['op'];
 }
 
 /** Again, use a naming convention that indicates the source of the content of the variable */
-// Security fix: Cast to int first, removed redundant htmlentities()
-$clean_content_id = isset($_GET['content_id']) ? (int)$_GET['content_id'] : 0;
-$clean_content_id = isset($_POST['content_id']) ? (int)$_POST['content_id'] : $clean_content_id;
-$clean_content_pid = isset($_GET['content_pid']) ? (int)$_GET['content_pid'] : 0;
-$clean_content_pid = isset($_POST['content_pid']) ? (int)$_POST['content_pid'] : $clean_content_pid;
+// Security fix: Cast to int first, POST takes precedence over GET
+$clean_content_id = isset($_POST['content_id']) ? (int)$_POST['content_id'] : 0;
+$clean_content_id = ($clean_content_id == 0 && isset($_GET['content_id'])) ? (int)$_GET['content_id'] : $clean_content_id;
+$clean_content_pid = isset($_POST['content_pid']) ? (int)$_POST['content_pid'] : 0;
+$clean_content_pid = ($clean_content_pid == 0 && isset($_GET['content_pid'])) ? (int)$_GET['content_pid'] : $clean_content_pid;
 
 /**
  * in_array() is a native PHP function that will determine if the value of the
