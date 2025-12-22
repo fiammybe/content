@@ -65,18 +65,19 @@ $clean_op = '';
  */
 $valid_op = array('mod', 'changedField', 'addcontent', 'del', 'clone', 'view', '');
 
-if (isset($_GET ['op'])) {
-    $clean_op = htmlentities($_GET ['op']);
-}
-if (isset($_POST ['op'])) {
-    $clean_op = htmlentities($_POST ['op']);
+// Security fix: POST takes precedence over GET for security
+if (isset($_POST['op'])) {
+    $clean_op = $_POST['op'];
+} elseif (isset($_GET['op'])) {
+    $clean_op = $_GET['op'];
 }
 
 /** Again, use a naming convention that indicates the source of the content of the variable */
-$clean_content_id = isset($_GET ['content_id']) ?(int)htmlentities($_GET ['content_id']) : 0;
-$clean_content_id = isset($_POST ['content_id']) ?(int)htmlentities($_POST ['content_id']) : htmlentities($clean_content_id);
-$clean_content_pid = isset($_GET ['content_pid']) ?(int)htmlentities($_GET ['content_pid']) : 0;
-$clean_content_pid = isset($_POST ['content_pid']) ?(int)htmlentities($_POST ['content_pid']) : htmlentities($clean_content_pid);
+// Security fix: Cast to int first, POST takes precedence over GET
+$clean_content_id = isset($_POST['content_id']) ? (int)$_POST['content_id'] : 0;
+$clean_content_id = ($clean_content_id == 0 && isset($_GET['content_id'])) ? (int)$_GET['content_id'] : $clean_content_id;
+$clean_content_pid = isset($_POST['content_pid']) ? (int)$_POST['content_pid'] : 0;
+$clean_content_pid = ($clean_content_pid == 0 && isset($_GET['content_pid'])) ? (int)$_GET['content_pid'] : $clean_content_pid;
 
 /**
  * in_array() is a native PHP function that will determine if the value of the
@@ -106,6 +107,11 @@ if (in_array($clean_op, $valid_op, true)) {
 			if(is_object($contentObj) && !$contentObj->isNew())  {
 				$subs = $contentObj->getContentSubs($clean_content_id, true);
 				if((isset($_POST['confirm']) && $_POST['confirm'] === TRUE) || !count($subs)) {
+					// Security fix: Add CSRF token validation before deletion
+					if (!icms::$security->check()) {
+						redirect_header('content.php', 3, _AM_CONTENT_SECURITY_CHECK_FAILED);
+						exit();
+					}
 					$controller = new icms_ipf_Controller($content_content_handler);
 					$controller->handleObjectDeletion();
 				}
@@ -133,6 +139,11 @@ if (in_array($clean_op, $valid_op, true)) {
 			break;
 
 		case "changedField" :
+			// Security fix: Add CSRF token validation before processing field changes
+			if (!icms::$security->check()) {
+				redirect_header('content.php', 3, _AM_CONTENT_SECURITY_CHECK_FAILED);
+				exit();
+			}
 			foreach ($_POST['mod_content_Content_objects'] as $k=>$v){
 				$changed = false;
 				$obj = $content_content_handler->get($v);

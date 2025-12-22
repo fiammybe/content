@@ -135,8 +135,12 @@ class mod_content_Content extends icms_ipf_seo_Object {
 		if ($this->getVar('content_tags', 'e') != '') {
 			$tags = explode (',', $this->getVar('content_tags', 'e'));
 			foreach ($tags as $k => $tag) {
-				$tag = trim ($tag);
-				$tag = ' <a href="' . $this->handler->_moduleUrl . 'index.php?tag=' . $tag . '">' . $tag . '</a>';
+				$tag = trim($tag);
+				// Security fix: Properly encode URLs and HTML to prevent XSS
+				$encoded_tag = urlencode($tag);
+				$escaped_tag = htmlspecialchars($tag, ENT_QUOTES, 'UTF-8');
+				$escaped_url = htmlspecialchars($this->handler->_moduleUrl, ENT_QUOTES, 'UTF-8');
+				$tag = ' <a href="' . $escaped_url . 'index.php?tag=' . $encoded_tag . '">' . $escaped_tag . '</a>';
 				$tags[$k] = $tag;
 			}
 			return implode(',', $tags);

@@ -34,6 +34,26 @@ function editcontent($contentObj) {
 	}
 }
 
+/**
+ * Validate page parameter to prevent SQL injection
+ * @param mixed $page The page parameter to validate
+ * @return string|int Valid page parameter or empty string
+ */
+function validatePageParameter($page) {
+	if (empty($page)) {
+		return '';
+	}
+	// Allow integers or alphanumeric strings with hyphens and underscores
+	if (is_numeric($page)) {
+		return (int)$page;
+	}
+	// Security: Anchor regex to ensure entire string matches
+	if (preg_match('/^[a-zA-Z0-9_-]+$/', $page)) {
+		return $page;
+	}
+	return '';
+}
+
 include_once 'header.php';
 
 $xoopsOption['template_main'] = 'content_content.html';
@@ -44,13 +64,21 @@ $content_content_handler = icms_getModuleHandler('content', basename(__DIR__));
 /** Again, use a naming convention that indicates the source of the content of the variable */
 $clean_content_id = isset($_GET['content_id']) ? filter_input(INPUT_GET, 'content_id', FILTER_SANITIZE_NUMBER_INT) : 0;
 $clean_content_id = ($clean_content_id == 0 && isset($_POST['content_id'])) ? filter_input(INPUT_POST, 'content_id', FILTER_SANITIZE_NUMBER_INT) : $clean_content_id;
-$page = isset($_GET['page']) ? trim(StopXSS($_GET['page'])) : ((isset($_POST['page'])) ? trim(StopXSS($_POST['page'])) : "");
+
+// Security fix: Improved sanitization for page parameter to prevent SQL injection
+$page = isset($_GET['page']) ? filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+$page = isset($_POST['page']) ? filter_input(INPUT_POST, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS) : $page;
+$page = validatePageParameter($page);
 
 if (!$page){
-	$path = (isset($_SERVER['PATH_INFO']) && substr($_SERVER['PATH_INFO'], 0, 1) == '/') ?
-		substr($_SERVER['PATH_INFO'], 1, strlen($_SERVER['PATH_INFO'])) :
-		((isset($_SERVER['PATH_INFO'])) ? $_SERVER['PATH_INFO'] : '');
-	$path = trim(StopXSS($path));
+	$path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+	if (substr($path, 0, 1) == '/') {
+		$path = substr($path, 1);
+	}
+	// Security fix: Remove path traversal attempts
+	$path = str_replace(['..', "\0", '\\'], '', $path);
+	$path = trim(filter_var($path, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	
 	$params = explode('/', $path);
 	if (count($params) > 0) {
 		if ($params[0] == 'page') {
@@ -58,6 +86,8 @@ if (!$page){
 		} else {
 			$page = $params[0];
 		}
+		// Re-validate extracted page parameter
+		$page = validatePageParameter($page);
 	}
 }
 
@@ -96,19 +126,26 @@ if (in_array($clean_op, $valid_op, true)){
 
 		case "addcontent":
 			if (!icms::$security->check()) {
-				redirect_header(icms_getPreviousPage('index.php'), 3, _MD_CONTENT_SECURITY_CHECK_FAILED . implode('<br />', icms::$security->getErrors()));
+				// Security fix: Escape error messages to prevent XSS
+				$errors = array_map('htmlspecialchars', icms::$security->getErrors());
+				redirect_header(icms_getPreviousPage('index.php'), 3, _MD_CONTENT_SECURITY_CHECK_FAILED . implode('<br />', $errors));
 			}
 			$controller = new icms_ipf_Controller($content_content_handler);
 			$controller->storeFromDefaultForm(_MD_CONTENT_CONTENT_CREATED, _MD_CONTENT_CONTENT_MODIFIED);
 			break;
 
 		case "del":
-			if (!$contentObj->userCanEditAndDelete()) {
-				redirect_header($contentObj->getItemLink(true), 3, _NOPERM);
+			// Security fix: Ensure object is loaded and validated
+			$contentObj = $content_content_handler->get($clean_content_id);
+			if (!$contentObj || $contentObj->isNew() || !$contentObj->userCanEditAndDelete()) {
+				redirect_header(icms_getPreviousPage('index.php'), 3, _NOPERM);
+				exit();
 			}
 			if (isset($_POST['confirm'])) {
 				if (!icms::$security->check()) {
-					redirect_header(icms_getPreviousPage(), 3, _MD_CONTENT_SECURITY_CHECK_FAILED . implode('<br />', icms::$security->getErrors()));
+					// Security fix: Escape error messages to prevent XSS
+					$errors = array_map('htmlspecialchars', icms::$security->getErrors());
+					redirect_header(icms_getPreviousPage(), 3, _MD_CONTENT_SECURITY_CHECK_FAILED . implode('<br />', $errors));
 				}
 			}
 			$controller = new icms_ipf_Controller($content_content_handler);

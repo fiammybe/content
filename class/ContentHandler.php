@@ -142,13 +142,22 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		$criteria->setOrder($sort);
 		$criteria->add(new icms_db_criteria_Item('content_status', CONTENT_CONTENT_STATUS_PUBLISHED));
 		if ($content_uid) $criteria->add(new icms_db_criteria_Item('content_uid', $content_uid));
-		if ($content_tags) $criteria->add(new icms_db_criteria_Item('content_tags', '%'.$content_tags.'%', 'LIKE'));
+		
+		// Security fix: Escape LIKE wildcards to prevent SQL injection
+		// Backslash must be escaped first to avoid double-escaping
+		if ($content_tags) {
+			$escaped_tags = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $content_tags);
+			$criteria->add(new icms_db_criteria_Item('content_tags', '%'.$escaped_tags.'%', 'LIKE'));
+		}
 
 		if ($content_id) {
-			$crit = new icms_db_criteria_Compo(new icms_db_criteria_Item('short_url', $content_id,'LIKE'));
+			// Security fix: Escape LIKE wildcards, backslash first
+			$escaped_id = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $content_id);
+			$crit = new icms_db_criteria_Compo(new icms_db_criteria_Item('short_url', $escaped_id,'LIKE'));
 			$alt_content_id = str_replace('-',' ',$content_id);
 			//Added for backward compatiblity in case short_url contains spaces instead of dashes.
-			$crit->add(new icms_db_criteria_Item('short_url', $alt_content_id),'OR');
+			$escaped_alt_id = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $alt_content_id);
+			$crit->add(new icms_db_criteria_Item('short_url', $escaped_alt_id),'OR');
 			$crit->add(new icms_db_criteria_Item('content_id', $content_id),'OR');
 			$criteria->add($crit);
 		}
@@ -275,7 +284,8 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		$contentObj = $this->get($id);
 		if (!is_object($contentObj)) return false;
 
-		if (!is_object(icms::$user) || (!$content_isAdmin && $contentObj->getVar('content_uid', 'e') != icms::$user->uid ())) {
+		// Security fix: Corrected method call from uid() to getVar('uid')
+		if (!is_object(icms::$user) || (!$content_isAdmin && $contentObj->getVar('content_uid', 'e') != icms::$user->getVar('uid'))) {
 			$contentObj->updating_counter = true;
 			$contentObj->setVar('counter', $contentObj->getVar('counter', 'n') + 1);
 			$this->insert($contentObj, true);
