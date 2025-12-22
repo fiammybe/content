@@ -1,3 +1,50 @@
+# Content 1.3.3 (Security Update)
+Release date : 22/12/2025
+
+## Security Fixes (Critical Priority)
+This release addresses multiple security vulnerabilities identified in a comprehensive security audit:
+
+### Critical Vulnerabilities Fixed
+- **SQL Injection in Content Retrieval**: Fixed improper sanitization of page parameters that could lead to SQL injection attacks
+- **Input Validation**: Replaced deprecated `FILTER_SANITIZE_MAGIC_QUOTES` with proper sanitization methods
+
+### High Severity Vulnerabilities Fixed
+- **XSS in Error Messages**: Added proper HTML escaping for security error messages to prevent reflected XSS attacks
+- **XSS in Content Tags**: Implemented proper URL encoding and HTML escaping in tag display to prevent stored XSS
+- **CSRF Protection**: Added CSRF token validation to admin delete operations and field change operations
+- **Input Sanitization**: Removed redundant and incorrect use of `htmlentities()` in admin input processing
+
+### Medium Severity Vulnerabilities Fixed
+- **SQL Injection in LIKE Clauses**: Added proper escaping of LIKE wildcard characters (%, _, \\) in ContentHandler
+- **Path Traversal**: Enhanced path validation to prevent directory traversal attacks via PATH_INFO
+- **Method Call Error**: Fixed incorrect method call syntax in `ContentHandler::updateCounter()`
+- **Access Control**: Improved validation to ensure objects exist before performing operations
+
+### Security Enhancements
+- **Security Headers**: Added HTTP security headers to all pages:
+  - X-Frame-Options: SAMEORIGIN (prevents clickjacking)
+  - X-Content-Type-Options: nosniff (prevents MIME sniffing)
+  - X-XSS-Protection: 1; mode=block (enables browser XSS protection)
+  - Referrer-Policy: strict-origin-when-cross-origin (controls referrer information)
+
+### Documentation
+- Added comprehensive `SECURITY_AUDIT.md` documenting all 21 identified vulnerabilities
+- Added `SECURITY.md` with security policy and best practices
+- Documented security fixes in changelog
+
+### Breaking Changes
+None - all fixes are backward compatible
+
+### Recommendations
+- **Immediate Update Required**: This is a critical security update addressing SQL injection and XSS vulnerabilities
+- Review custom code for similar patterns
+- Ensure ImpressCMS core is up to date
+- Monitor logs for suspicious activity
+
+For detailed information about vulnerabilities and fixes, see `SECURITY_AUDIT.md`
+
+---
+
 # Content 1.4.0
 Release date : 01/03/2022
 - Update version information
