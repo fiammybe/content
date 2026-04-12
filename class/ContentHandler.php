@@ -322,13 +322,13 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 	}
 
 
-	public function getList($content_status = null) {
+	public function getList($content_status = null, $limit = 0,$start=0,$debug=false) {
 		$criteria = new icms_db_criteria_Compo();
 
 		if (isset($content_status)) {
 			$criteria->add(new icms_db_criteria_Item('content_status', (int)$content_status));
 		}
-		$contents = & $this->getObjects($criteria, true);
+		$contents = $this->getObjects($criteria, true);
 		foreach(array_keys($contents) as $i) {
 			$ret[$contents[$i]->getVar('content_id')] = $contents[$i]->getVar('content_title');
 		}

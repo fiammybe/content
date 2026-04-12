@@ -17,7 +17,7 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_CONTENT_MD_NAME,
-	'version'					=> "1.3.3",
+	'version'					=> "1.4.0",
 	'description'				=> _MI_CONTENT_MD_DESC,
 	'author'					=> "David Janssens (fiammybe)",
 	'credits'					=> "mekdrop, skenow, Rodrigo P Lima aka TheRplima, Phoenyx",
@@ -33,16 +33,17 @@ $modversion = array(
 	'image'						=> "images/icon_big.png", /* for backward compatibility */
 
 /**  Development information */
-	'status_version'			=> "beta",
-	'status'					=> "beta",
-	'date'						=> "14 Nov 2023",
+
+	'status_version'			=> "1.4.0",
+	'status'					=> "final",
+	'date'						=> "01 Jan 2025",
 	'author_word'				=> "",
 	'warning'					=> _CO_ICMS_WARNING_BETA,
 
 /** Contributors */
 	'developer_website_url'		=> "https://www.impresscms.org",
 	'developer_website_name'	=> "The ImpressCMS Project",
-	'developer_email'			=> "contact@impresscms.org",
+	'developer_email'			=> "david.j@impresscms.org",
 
 /** Administrative information */
 	'hasAdmin'					=> 1,
@@ -73,11 +74,6 @@ $modversion = array(
 $modversion["tables"] = icms_getTablesArray($modversion['dirname'], $modversion['object_items']);
 $modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=1102]David Janssens (fiammybe)[/url]";
 $modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]Rodrigo P Lima (TheRplima)[/url]";
-$modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
-$modversion['people']['translators'][] = "[url=https://www.impresscms.org/userinfo.php?uid=106]phoenyx[/url]";
-//$modversion['people']['testers'][] = "";
-//$modversion['people']['documenters'][] = "";
-//$modversion['people']['other'][] = "";
 
 /** Manual */
 $modversion['manual']['wiki'][] = "<a href='http://wiki.impresscms.org/index.php?title=content' target='_blank'>English</a>";
