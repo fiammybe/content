@@ -23,6 +23,21 @@ class mod_content_Content extends icms_ipf_seo_Object {
 	public $tags = false;
 	public $categories = false;
 
+	/**
+	 * Lazy-loaded zone meta values for this content item.
+	 * Populated by loadMeta() and persisted via ContentHandler::afterSave().
+	 *
+	 * @var array|null  null = not yet loaded,  array = name→value map
+	 */
+	public $_meta = null;
+
+	/**
+	 * Pending meta values collected from a submitted form before afterSave() runs.
+	 *
+	 * @var array
+	 */
+	public $_pendingMeta = array();
+
 	public function __construct(&$handler) {
 		global $contentConfig;
 
@@ -382,6 +397,152 @@ class mod_content_Content extends icms_ipf_seo_Object {
 		$ret['itemLink'] = $this->getItemLink();
 		//$ret['accessgranted'] = $this->accessGranted();
 
+		/* Expose zone meta values so that the {zone} Smarty plugin can read them. */
+		$ret['_meta'] = $this->loadMeta();
+
 		return $ret;
+	}
+
+	// -----------------------------------------------------------------------
+	// Zone meta methods
+	// -----------------------------------------------------------------------
+
+	/**
+	 * Lazily load zone meta values from the database.
+	 *
+	 * @return array  name→value map (empty array for new objects)
+	 */
+	public function loadMeta() {
+		if ($this->_meta !== null) {
+			return $this->_meta;
+		}
+
+		$id = (int) $this->getVar('content_id', 'e');
+		if ($id <= 0) {
+			$this->_meta = array();
+			return $this->_meta;
+		}
+
+		$metaHandler = icms_getModuleHandler('meta_field', 'content', 'content');
+		$this->_meta = is_object($metaHandler)
+			? $metaHandler->getMetaForItem('content', $id)
+			: array();
+
+		return $this->_meta;
+	}
+
+	/**
+	 * Get a single zone meta value.
+	 *
+	 * @param  string $name  Zone name
+	 * @return string        Stored value, or empty string if not found
+	 */
+	public function getMeta($name) {
+		$meta = $this->loadMeta();
+		return isset($meta[$name]) ? (string) $meta[$name] : '';
+	}
+
+	/**
+	 * Set a single zone meta value (in-memory; persisted by ContentHandler::afterSave).
+	 *
+	 * @param string $name   Zone name
+	 * @param string $value  Value to store
+	 */
+	public function setMeta($name, $value) {
+		if ($this->_meta === null) {
+			$this->loadMeta();
+		}
+		$this->_meta[$name] = (string) $value;
+	}
+
+	/**
+	 * Build the admin edit-form, appending dynamic zone fields after the
+	 * standard IPF fields.
+	 *
+	 * Zone fields are detected by scanning the content_default.html (or any
+	 * other template that defines zones) with the ZoneScanner.
+	 *
+	 * @param  mixed  $action  Form title / action URL passed to parent
+	 * @param  string $form    Form identifier
+	 * @return object          ImpressCMS form object
+	 */
+	public function getForm($action = false, $form = 'addcontent') {
+		$sform = parent::getForm($action, $form);
+
+		$zones = $this->_detectZones();
+		if (empty($zones)) {
+			return $sform;
+		}
+
+		icms_loadLanguageFile('content', 'common');
+
+		$meta = $this->loadMeta();
+
+		/* Add a visual separator before zone fields. */
+		$sform->addElement(new icms_form_elements_Label(
+			defined('_CO_CONTENT_ZONE_SECTION') ? _CO_CONTENT_ZONE_SECTION : 'Template Zones',
+			''
+		));
+
+		foreach ($zones as $zone) {
+			$name    = $zone['name'];
+			$type    = isset($zone['type'])    ? $zone['type']    : 'text';
+			$label   = isset($zone['label'])   ? $zone['label']   : $name;
+			$options = isset($zone['options']) ? $zone['options'] : '';
+			$value   = isset($meta[$name])     ? $meta[$name]     : '';
+
+			/* Field name in the HTML form – prefixed to avoid collisions. */
+			$fieldName = 'zone_meta_' . $name;
+
+			switch ($type) {
+				case 'textarea':
+					$element = new icms_form_elements_Textarea($label, $fieldName, $value, 5, 60);
+					break;
+
+				case 'select':
+					$element = new icms_form_elements_Select($label, $fieldName, $value);
+					foreach (explode(',', $options) as $opt) {
+						$opt = trim($opt);
+						if ($opt !== '') {
+							$element->addOption($opt, $opt);
+						}
+					}
+					break;
+
+				case 'image':
+					/* Store the image URL as plain text; a text field is sufficient. */
+					$element = new icms_form_elements_Text($label, $fieldName, $value, 60, 255);
+					break;
+
+				case 'text':
+				default:
+					$element = new icms_form_elements_Text($label, $fieldName, $value, 60, 255);
+					break;
+			}
+
+			$sform->addElement($element);
+		}
+
+		return $sform;
+	}
+
+	/**
+	 * Scan templates for zone definitions.
+	 *
+	 * @return array[]  Zone definitions (may be empty)
+	 */
+	private function _detectZones() {
+		if (!class_exists('mod_content_ZoneScanner')) {
+			$scannerFile = dirname(__FILE__) . '/ZoneScanner.php';
+			if (file_exists($scannerFile)) {
+				require_once $scannerFile;
+			}
+		}
+		if (!class_exists('mod_content_ZoneScanner')) {
+			return array();
+		}
+
+		$scanner = new mod_content_ZoneScanner();
+		return $scanner->scanTemplate('content_default.html');
 	}
 }

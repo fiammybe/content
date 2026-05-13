@@ -62,3 +62,6 @@ define("_CO_CONTENT_CONTENT_VISIBLE_MENUOLNY", "Only in Menu");
 define("_CO_CONTENT_CONTENT_VISIBLE_SUBSONLY", "Only in Related Pages");
 define("_CO_CONTENT_CONTENT_VISIBLE_MENUSUBS", "Menu and Related Pages");
 define("_CO_CONTENT_CONTENT_VISIBLE_DONTSHOW", "Don't show link");
+
+// Zone / meta-field support
+define("_CO_CONTENT_ZONE_SECTION", "Template Zone Fields");
