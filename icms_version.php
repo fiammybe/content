@@ -69,7 +69,7 @@ $modversion = array(
 	'hasMain'					=> 1,
 
 /** Database information */
-	'object_items'				=> array('content'));
+	'object_items'				=> array('content', 'meta_field'));
 
 $modversion["tables"] = icms_getTablesArray($modversion['dirname'], $modversion['object_items']);
 $modversion['people']['developers'][] = "[url=https://www.impresscms.org/userinfo.php?uid=1102]David Janssens (fiammybe)[/url]";
@@ -121,7 +121,8 @@ $modversion['templates'] = array(
 	array('file' => 'content_single_content.html', 'description' => 'Single content template'),
 	array('file' => 'content_content.html', 'description' => 'Content page'),
 	array('file' => 'content_requirements.html', 'description' => 'Content page'),
-	array('file' => 'content_content_menu_structure.html', 'description' => 'Structure used to create recursive menu.'));
+	array('file' => 'content_content_menu_structure.html', 'description' => 'Structure used to create recursive menu.'),
+	array('file' => 'content_default.html', 'description' => 'Demo template with zone placeholders'));
 
 /** Preferences information */
 

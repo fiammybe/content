@@ -33,6 +33,8 @@ define("_MI_CONTENT_SHOWRELATEDS", "Show Related Pages");
 define("_MI_CONTENT_SHOWRELATEDSDSC", "Set to YES to show the related pages after the page content.");
 define("_MI_CONTENT_SHOWINFO", "Show author and published info");
 define("_MI_CONTENT_SHOWINFODSC", "Set to YES to show in the page informations about the author and publish of the page.");
+define("_MI_CONTENT_CONTENTSPOTLIGHT", "Content Spotlight");
+define("_MI_CONTENT_CONTENTSPOTLIGHTDSC", "Display a spotlight/featured content page in a block.");
 
 // Blocks
 define("_MI_CONTENT_CONTENTDISPLAY", "Content");

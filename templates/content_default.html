@@ -1,0 +1,83 @@
+<{*
+ * content_default.html – Demo template with zone placeholders
+ *
+ * This template demonstrates the zone system for the content module.
+ * Each <{zone …}> tag defines an editable region that:
+ *
+ *   1. Automatically generates a form field in the admin UI (zero code change).
+ *   2. Is rendered here by the {zone} Smarty plugin using the stored meta value.
+ *
+ * Zone parameters:
+ *   name    – unique identifier used as the form field name and storage key
+ *   type    – text | textarea | select | image
+ *   label   – caption shown in the admin edit form
+ *   options – comma-separated values for type="select"
+ *}>
+<{if $content_content}>
+<style type="text/css"><{$content_content.content_css}></style>
+
+<div class="content_default_container">
+
+    {{-- Page title --}}
+    <h1 class="content_default_title">
+        <{$content_content.content_title}>
+        <{if $content_content.userCanEditAndDelete}>
+            <{$content_content.editItemLink}>
+            <{$content_content.deleteItemLink}>
+        <{/if}>
+    </h1>
+
+    {{-- Zone: subtitle (single line of text) --}}
+    <{zone name="subtitle" type="text" label="Subtitle"}>
+    <{if $content_content._meta.subtitle}>
+    <p class="content_default_subtitle"><{$content_content._meta.subtitle}></p>
+    <{/if}>
+
+    {{-- Zone: hero_image (URL of a hero/banner image) --}}
+    <{zone name="hero_image" type="image" label="Hero Image"}>
+    <{if $content_content._meta.hero_image}>
+    <div class="content_default_hero">
+        <img src="<{$content_content._meta.hero_image}>" alt="<{$content_content.content_title}>" />
+    </div>
+    <{/if}>
+
+    {{-- Content info (author, date, reads) --}}
+    <{if $showInfo}>
+    <div class="content_default_info"><{$content_content.content_info}></div>
+    <{/if}>
+
+    {{-- Zone: intro (short introductory paragraph) --}}
+    <{zone name="intro" type="textarea" label="Introduction"}>
+    <{if $content_content._meta.intro}>
+    <div class="content_default_intro"><{$content_content._meta.intro}></div>
+    <{/if}>
+
+    {{-- Main body --}}
+    <div class="content_default_body"><{$content_content.content_body}></div>
+
+    {{-- Zone: cta_style (visual variant for a call-to-action button) --}}
+    <{zone name="cta_style" type="select" label="CTA Style" options="primary,secondary,danger"}>
+    <{if $content_content._meta.cta_style}>
+    <div class="content_default_cta <{$content_content._meta.cta_style}>">
+        <a href="<{$content_content.itemLink}>" class="btn btn-<{$content_content._meta.cta_style}>">
+            <{$smarty.const._MD_CONTENT_READMORE|default:"Read more"}>
+        </a>
+    </div>
+    <{/if}>
+
+    {{-- Related pages --}}
+    <{if $showSubs && $content_content.content_hassubs}>
+    <hr />
+    <div class="content_default_subs">
+        <div class="content_default_subs_header"><{$smarty.const._MD_CONTENT_SUBS|default:"Related pages"}></div>
+        <{foreach item=sub from=$content_content.content_subs}>
+        <div class="content_default_subs_item <{cycle values="even,odd"}>">
+            <h3><{$sub.itemLink}></h3>
+            <div><{$sub.content_body}></div>
+        </div>
+        <{/foreach}>
+    </div>
+    <{/if}>
+
+</div>
+<{/if}>

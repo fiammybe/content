@@ -35,3 +35,12 @@ $contentConfig = icms_getModuleConfig(CONTENT_DIRNAME);
 
 // creating the icmsPersistableRegistry to make it available throughout the module
 $icmsPersistableRegistry = icms_ipf_registry_Handler::getInstance();
+
+// Register the zone Smarty plugin bundled with this module so that {zone}
+// tags are available in all templates.
+if (isset($icmsTpl) && is_object($icmsTpl)) {
+	$zonePluginDir = CONTENT_ROOT_PATH . 'class/smarty/plugins/';
+	if (method_exists($icmsTpl, 'addPluginsDir')) {
+		$icmsTpl->addPluginsDir($zonePluginDir);
+	}
+}

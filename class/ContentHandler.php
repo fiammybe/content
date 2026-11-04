@@ -467,6 +467,21 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 			$obj->setVar('content_pid', 0);
 		}
 
+		/* Collect zone meta values from the submitted form so they are
+		 * available in afterSave() once the object's ID is known. */
+		$pendingMeta = array();
+		foreach ($_POST as $key => $value) {
+			if (strncmp($key, 'zone_meta_', 10) === 0) {
+				$zoneName = substr($key, 10);
+				if ($zoneName !== '') {
+					$pendingMeta[$zoneName] = is_array($value) ? implode(',', $value) : (string) $value;
+				}
+			}
+		}
+		if (!empty($pendingMeta)) {
+			$obj->_pendingMeta = $pendingMeta;
+		}
+
 		return true;
 	}
 
@@ -509,6 +524,18 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 			$ct = $symlink_handler->getObjects($criteria, FALSE, TRUE);
 			if($ct) $symlink_handler->delete($ct[0]);
 		}
+
+		/* Persist pending zone meta values collected during beforeSave(). */
+		if (!empty($obj->_pendingMeta)) {
+			$metaHandler = icms_getModuleHandler('meta_field', 'content', 'content');
+			if (is_object($metaHandler)) {
+				$metaHandler->saveMetaForItem('content', (int) $obj->id(), $obj->_pendingMeta);
+				/* Sync the in-memory cache on the object. */
+				$obj->_meta    = $obj->_pendingMeta;
+				$obj->_pendingMeta = array();
+			}
+		}
+
 		return true;
 	}
 
@@ -528,6 +555,12 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		$criteria = new icms_db_criteria_Compo(new icms_db_criteria_Item('page_url', $url));
 		$criteria->add(new icms_db_criteria_Item('page_moduleid', $module->getVar('mid')));
 		$symlink_handler->deleteAll($criteria);
+
+		/* Remove zone meta values for this content item. */
+		$metaHandler = icms_getModuleHandler('meta_field', 'content', 'content');
+		if (is_object($metaHandler)) {
+			$metaHandler->deleteMetaForItem('content', (int) $obj->getVar('content_id', 'e'));
+		}
 
 		return true;
 	}

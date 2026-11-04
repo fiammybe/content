@@ -23,7 +23,7 @@
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 
 // this needs to be the latest db version
-define ('CONTENT_DB_VERSION', 1);
+define ('CONTENT_DB_VERSION', 2);
 
 /**
  * it is possible to define custom functions which will be call when the module is updating at the
@@ -33,6 +33,29 @@ define ('CONTENT_DB_VERSION', 1);
  }
  function content_db_upgrade_2() {
  }*/
+
+/**
+ * DB upgrade step 2: create the zone meta-field table.
+ *
+ * This is a no-op when IPF already created the table via the object_items
+ * declaration in icms_version.php (fresh installs).  For existing installations
+ * that are being updated the table needs to be created here.
+ */
+function content_db_upgrade_2() {
+	$table = new icms_db_legacy_updater_Table('content_meta_field');
+	if (!$table->exists()) {
+		$sql = 'CREATE TABLE IF NOT EXISTS ' . icms::$xoopsDB->prefix('content_meta_field') . ' ('
+			. '`meta_id`        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,'
+			. '`meta_module`    VARCHAR(100)     NOT NULL DEFAULT "",'
+			. '`meta_item_id`   INT(10) UNSIGNED NOT NULL DEFAULT 0,'
+			. '`meta_zone_name` VARCHAR(100)     NOT NULL DEFAULT "",'
+			. '`meta_value`     TEXT,'
+			. 'PRIMARY KEY (`meta_id`),'
+			. 'KEY `idx_meta_item` (`meta_module`, `meta_item_id`)'
+			. ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
+		icms::$xoopsDB->queryF($sql);
+	}
+}
 
 function icms_module_update_content($module) {
 	$content_handler = icms_getModuleHandler('content', basename(dirname(__FILE__, 2)), 'content');
